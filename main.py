@@ -4,7 +4,8 @@ import time
 from functions import send_email
 
 URL = "https://programmer100.pythonanywhere.com/tours/"
-
+# "INSERT INTO events VALUES ('Tigers', 'Tigers City', '2023.10.10')"
+# "SELECT * FROM events WHERE date='2023.10.15'"
 
 def scrape(url):
     """Scrape the page source from the URL"""
@@ -36,10 +37,11 @@ if __name__ == "__main__":
         scraped = scrape(URL)
         extracted = extract(scraped)
         content = read_extracted(extracted)
+        print(extracted)
         
         if extracted != "No upcoming tours":
             if extracted not in content:
                 store(extracted)
-                send_email(message="Hey, new event was found!")
+                # send_email(message="Hey, new event was found!")
                 
         time.sleep(10)
