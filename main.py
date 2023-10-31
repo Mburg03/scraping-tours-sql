@@ -19,7 +19,7 @@ def scrape(url):
 
 
 def extract(source):
-    extractor = selectorlib.Extractor.from_yaml_file("./extract.yaml")
+    extractor = selectorlib.Extractor.from_yaml_file("extract.yaml")
     value = extractor.extract(source)["tours"]
     
     return value
@@ -31,6 +31,7 @@ def store(extracted):
     cursor = connection.cursor()
     cursor.execute("INSERT INTO events VALUES(?,?,?)", row)
     connection.commit()
+
 
 def read_extracted(extracted):
     row = extracted.split(',')
@@ -54,6 +55,6 @@ if __name__ == "__main__":
             row = read_extracted(extracted)
             if not row:
                 store(extracted)
-                # send_email(message="Hey, new event was found!")
+                send_email(message="Hey, new event was found!")
                 
         time.sleep(10)
